@@ -1,0 +1,85 @@
+name: Sponsor Recognition
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  issues:
+    types: [opened]
+
+jobs:
+  sponsor-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if user is sponsor
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: sponsors } = await github.graphql(`
+              query($owner: String!, $repo: String!) {
+                repository(owner: $owner, name: $repo) {
+                  sponsorsListing {
+                    tiers(first: 10) {
+                      nodes {
+                        id
+                        name
+                        monthlyPriceInDollars
+                      }
+                    }
+                  }
+                }
+              }
+            `, {
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            
+            console.log('Sponsor tiers available:', sponsors.repository.sponsorsListing?.tiiers);
+            
+      - name: Sponsor welcome message
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const author = pr.user.login;
+            
+            // Check if author is a sponsor (simplified check)
+            const isSponsor = false; // This would need actual sponsor API call
+            
+            if (isSponsor) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: `🌟 **Special thanks to @${author} for being a GitHub Sponsor!** 🌟
+                
+                Your support helps us continue developing open-source solutions for government agencies. As a sponsor, you get:
+                - Priority review of your PRs
+                - Early access to new features
+                - Direct support from our team
+                
+                Thank you for supporting our mission! 🙏`
+              });
+            }
+
+  sponsor-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label sponsor issues/PRs
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue || context.payload.pull_request;
+            const author = issue.user.login;
+            
+            // This would check if the author is a sponsor
+            const isSponsor = false; // Placeholder for sponsor check
+            
+            if (isSponsor) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['sponsor']
+              });
+            }
