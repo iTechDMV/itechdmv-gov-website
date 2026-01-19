@@ -222,18 +222,6 @@ Help us reach our funding milestones:
 - **Support**: support@itechdmv.com
 - **Security**: security@itechdmv.com
 
-## 🏆 Success Stories
-
-### Case Studies
-- **[Virginia Department of Transportation](docs/case-studies/vdot.md)**: 40% cost reduction in IT operations
-- **[Harrisonburg City Government](docs/case-studies/harrisonburg.md)**: Complete digital transformation
-- **[Rockingham County Schools](docs/case-studies/rockingham-schools.md)**: Enhanced cybersecurity for 15,000 students
-
-### Testimonials
-> "iTechDMV's platform transformed how we deliver services to our citizens. The cost savings and efficiency gains have been remarkable." - *Sarah Johnson, IT Director, Harrisonburg City*
-
-> "The cybersecurity features alone have saved us from multiple potential breaches. Highly recommended for any government agency." - *Michael Chen, CISO, Rockingham County*
-
 ## 🔮 Roadmap
 
 ### Q1 2024
